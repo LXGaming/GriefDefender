@@ -120,6 +120,10 @@ public class FileStorage extends BaseStorage {
 
     public void registerWorld(World world) {
         final UUID worldUniqueId = world.getUniqueId();
+        if (this.claimWorldManagers.containsKey(worldUniqueId)) {
+            return;
+        }
+
         DimensionType dimType = world.getProperties().getDimensionType();
         String[] parts = dimType.getId().split(":");
         Path dimPath = rootConfigPath.resolve(parts[0]).resolve(dimType.getName());
